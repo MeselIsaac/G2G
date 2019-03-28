@@ -42,7 +42,7 @@ app.use("/api/users", usersRoutes(knex));
 
 //-------------GET REQUESTS------------
 
-//brows index/root 
+//browse index/root 
 app.get("/", (req, res) => {
   res.render("root");
 });
@@ -53,17 +53,17 @@ app.get("/create", (req, res) => {
 });
 
 //browse a map
-app.get("users/maps/:mapid", (req, res) => {
-  res.render("maps/:mapid");
+app.get("/users/maps/:mapid/", (req, res) => {
+  res.render("map");
 });
 
 //browse user profile
-app.get("users/:id", (req, res) => {
-  res.render("users/:id");
+app.get("/users/:id/", (req, res) => {
+  res.render("profile");
 });
 
 //view point data
-app.get("maps/:mapid/:point", (req, res) => {
+app.get("/maps/:mapid/:point", (req, res) => {
   res.render(/*maps id where point is*/)
 })
 
