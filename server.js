@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 8080;
 const ENV = process.env.ENV || "development";
 const express = require("express");
 const bodyParser = require("body-parser");
+var cookieSession = require('cookie-session');
 const sass = require("node-sass-middleware");
 const app = express();
 
@@ -24,6 +25,14 @@ app.use(morgan('dev'));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['keyboard'],
+
+  //Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -44,6 +53,7 @@ app.use("/api/users", usersRoutes(knex));
 
 //browse index/root
 app.get("/", (req, res) => {
+
   res.render("root");
 });
 
@@ -72,9 +82,30 @@ app.get("/maps/:mapid/:point", (req, res) => {
 //------------POST REQUEST--------------
 
 //login taken from https://web.compass.lighthouselabs.ca/activities/352/lectures/2381 a get masquerading as a post
-app.get('/login/:id', (req, res) => {
-  req.session.user_id = req.params.id;
-  resonse.redirect('/');
+  app.post('/', (req, res) => {
+
+  knex('users').select('id').where({email: req.body.email, password: req.body.password})
+  .asCallback(function(err, rows) {
+    if (err) {
+      res.status(500).end()
+      return
+    } else if (rows[0] === undefined) {
+      knex('users').insert({password: req.body.password, email: req.body.email}).returning('id')
+      .asCallback(function(rows) {
+        if (err) {
+          res.status(500).end()
+          return
+        }
+        console.log('look', rows[0])
+        req.session.user_id = rows[0]
+        res.redirect('/')
+      })
+    } else {
+      console.log('here', rows[0].id)
+      req.session.user_id = rows[0].id
+      res.redirect('/');
+    }
+  })
 });
 
 //logout
@@ -84,9 +115,15 @@ app.post("/logout", (req, res) => {
 });
 
 //create a new map
-app.post("/map", (req, res) => {
+app.post("/create", (req, res) => {
+  knex('curated_area').insert({ user_id: req.session.user_id, title: req.body.title})
+  .then(function(rows) {
+    console.log('look', rows)
+    res.redirect('/')
+  })
+
   /* user selects a ceterpoint, generating a new map */
-  res.redirect("/maps/:id")
+  // res.redirect("/maps/:id")
 });
 
 //create a point on a map
