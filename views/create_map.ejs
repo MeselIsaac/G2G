@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script
+src="https://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+crossorigin="anonymous"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Create A Map</title>
     <meta name="description" content="you wanna go to the bathroom?">
     <meta name="author" content="MMA">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
+     <link rel="stylesheet" href="styles/create_map.css" type="text/css" />
+  
+     <script type="text/javascript" src="/scripts/app.js"></script>
 
-    <style>
-        #createmap {margin-top: 2.5%; height: 15px;}
-        .createmapcontainer div {text-align: center;}
-        .createmapcontainer header {text-align: center;}
-    </style>
+
 </head>
 
 <body>
@@ -28,14 +30,53 @@
     </nav>
 
     <main class="createmapcontainer">
-        <header> 
+        <header>
             <h2 class="pickcity">Pick a City to Create your Map</h2>
         </header>
-        <div>
-            <img class="map" src="http://placekitten.com/408/287" alt="">
-            <div> <input id="createmap" type="submit" class="btn btn-primary" value="Create Map"> </div>
+
+        <form id="mapName" action="#" method="post">
+         <div>
+           Map Title:<br>
+      <input type="text" id="title" placeholder="Enter map name here"><br>
+      <button type="submit">Create Map</button>
+         </div>
+       </form>
+
+        <div id="showmap">
+          <div id="floating-panel">
+            <input onclick="clearMarkers();" type=button value="Hide Markers">
+            <input onclick="showMarkers();" type=button value="Show All Markers">
+            <input onclick="deleteMarkers();" type=button value="Delete Markers">
+          </div>
+          <div id="map"></div>
+          <p>Click on the map to add markers.</p>
+
+
+
+          <p>
+            </p>
+              <form id="submitForm" action="#" method="post">
+               <div>
+                 Location Title:<br>
+            <input type="text" id="title" value="Australia"><br>
+
+              Description:<br>
+            <input type="text" id="description" value="Enter description here"><br>
+
+              Rating:<br>
+            <input type="text" id="rating" value="On a scale of 1-5"><br>
+
+            <input type="submit" value="Submit">
+               </div>
+             </form>
+
+
         </div>
     </main>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY_vuhzmSgKE3XRutXaWk2MUstXdnrKZY&callback=initMap">
+    </script>
 
 </body>
 
