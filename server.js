@@ -42,14 +42,14 @@ app.use("/api/users", usersRoutes(knex));
 
 //-------------GET REQUESTS------------
 
-//browse index/root 
+//browse index/root
 app.get("/", (req, res) => {
   res.render("root");
 });
 
 //browse create page
 app.get("/create", (req, res) => {
-  res.render(/* create ejs goes here */);
+  res.render("create_map");
 });
 
 //browse a map
