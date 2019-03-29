@@ -91,11 +91,11 @@ function deleteMarkers() {
 $(document).ready(function () {
 
   //slideToggle
-  $ ("#mapName").submit(function (){
-    $ ("#showmap").slideToggle ();
-    $ ( "#showmap title" ).focus ();
-    return false
-  });
+  // $ ("#mapName").submit(function (){
+  //   $ ("#showmap").slideToggle ();
+  //   $ ( "#showmap title" ).focus ();
+  //   return false
+  // });
 
 
 
