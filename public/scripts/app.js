@@ -9,7 +9,7 @@ function initMap() {
   var haightAshbury = {lat: 37.769, lng: -122.446};
 
   map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 3,
+    zoom: 2,
     center: haightAshbury,
     mapTypeId: 'terrain'
   });
