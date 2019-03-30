@@ -54,9 +54,23 @@ app.use("/api/users", usersRoutes(knex));
 
 //browse index/root
 app.get("/", (req, res) => {
-
-  res.render("root");
-});
+  let templateVars = {};
+  console.log("I AM HERE _____________");
+  // in here, join the points entity so that we can use their coords as template vars.
+  return knex('curated_area')
+    .select()
+    .then(function (result) {
+      for (let key in result) {
+        templateVars = {
+          long: result[key].long,
+          lat: result[key].lat,
+          title: result[key].title,
+          description: result[key].description
+        }
+      }
+      res.render("root", templateVars);
+    })
+})
 
 //browse create page
 app.get("/create", (req, res) => {
@@ -100,30 +114,30 @@ app.get("/maps/:mapid/:point", (req, res) => {
 
 //login taken from https://web.compass.lighthouselabs.ca/activities/352/lectures/2381 a get masquerading as a post
 
-  app.post('/', (req, res) => {
+app.post('/', (req, res) => {
 
-  knex('users').select('id').where({email: req.body.email, password: req.body.password})
-  .asCallback(function(err, rows) {
-    if (err) {
-      res.status(500).end()
-      return
-    } else if (rows[0] === undefined) {
-      knex('users').insert({password: req.body.password, email: req.body.email}).returning('id')
-      .asCallback(function(rows) {
-        if (err) {
-          res.status(500).end()
-          return
-        }
-        console.log('look', rows[0])
-        req.session.user_id = rows[0]
-        res.redirect('/')
-      })
-    } else {
-      console.log('here', rows[0].id)
-      req.session.user_id = rows[0].id
-      res.redirect('/');
-    }
-  })
+  knex('users').select('id').where({ email: req.body.email, password: req.body.password })
+    .asCallback(function (err, rows) {
+      if (err) {
+        res.status(500).end()
+        return
+      } else if (rows[0] === undefined) {
+        knex('users').insert({ password: req.body.password, email: req.body.email }).returning('id')
+          .asCallback(function (rows) {
+            if (err) {
+              res.status(500).end()
+              return
+            }
+            console.log('look', rows[0])
+            req.session.user_id = rows[0]
+            res.redirect('/')
+          })
+      } else {
+        console.log('here', rows[0].id)
+        req.session.user_id = rows[0].id
+        res.redirect('/');
+      }
+    })
 
 });
 
@@ -137,10 +151,10 @@ app.post("/logout", (req, res) => {
 app.post("/create", (req, res) => {
 
   knex('curated_area').insert({ user_id: req.session.user_id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
-  .then(function(rows) {
-    console.log('look', rows)
-    res.redirect('/')
-  })
+    .then(function (rows) {
+      console.log('look', rows)
+      res.redirect('/')
+    })
 
 
   /* user selects a ceterpoint, generating a new map */
