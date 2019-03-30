@@ -68,7 +68,7 @@ app.get("/users/maps/:mapid", (req, res) => {
   let templateVars = {};
   return knex('curated_area')
     .select()
-    .where({ user_id: req.session.user_id, id: req.params.mapid })
+    .where({ id: req.params.mapid })
     .then(function (result) {
       for (let key in result) {
         templateVars = {
