@@ -1,6 +1,7 @@
-"use strict";
 
+"use strict";
 require('dotenv').config();
+// require('./public/scripts/app.js');
 
 const PORT = process.env.PORT || 8080;
 const ENV = process.env.ENV || "development";
@@ -99,30 +100,32 @@ app.get("/maps/:mapid/:point", (req, res) => {
 //------------POST REQUEST--------------
 
 //login taken from https://web.compass.lighthouselabs.ca/activities/352/lectures/2381 a get masquerading as a post
-app.post('/', (req, res) => {
 
-  knex('users').select('id').where({ email: req.body.email, password: req.body.password })
-    .asCallback(function (err, rows) {
-      if (err) {
-        res.status(500).end()
-        return
-      } else if (rows[0] === undefined) {
-        knex('users').insert({ password: req.body.password, email: req.body.email }).returning('id')
-          .asCallback(function (rows) {
-            if (err) {
-              res.status(500).end()
-              return
-            }
-            console.log('look', rows[0])
-            req.session.user_id = rows[0]
-            res.redirect('/')
-          })
-      } else {
-        console.log('here', rows[0].id)
-        req.session.user_id = rows[0].id
-        res.redirect('/');
-      }
-    })
+  app.post('/', (req, res) => {
+
+  knex('users').select('id').where({email: req.body.email, password: req.body.password})
+  .asCallback(function(err, rows) {
+    if (err) {
+      res.status(500).end()
+      return
+    } else if (rows[0] === undefined) {
+      knex('users').insert({password: req.body.password, email: req.body.email}).returning('id')
+      .asCallback(function(rows) {
+        if (err) {
+          res.status(500).end()
+          return
+        }
+        console.log('look', rows[0])
+        req.session.user_id = rows[0]
+        res.redirect('/')
+      })
+    } else {
+      console.log('here', rows[0].id)
+      req.session.user_id = rows[0].id
+      res.redirect('/');
+    }
+  })
+
 });
 
 //logout
@@ -133,11 +136,13 @@ app.post("/logout", (req, res) => {
 
 //create a new map
 app.post("/create", (req, res) => {
-  knex('curated_area').insert({ user_id: req.session.user_id, title: req.body.title })
-    .then(function (rows) {
-      console.log('look', rows)
-      res.redirect('/')
-    })
+
+  knex('curated_area').insert({ user_id: req.session.user_id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
+  .then(function(rows) {
+    console.log('look', rows)
+    res.redirect('/')
+  })
+
 
   /* user selects a ceterpoint, generating a new map */
   // res.redirect("/maps/:id")
@@ -179,3 +184,5 @@ app.delete("/maps/:id/:point", (req, res) => {
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
+

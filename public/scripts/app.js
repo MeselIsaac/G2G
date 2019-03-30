@@ -4,6 +4,7 @@
 var map;
 var markers = [];
 var temp_marker = {};
+const data = {}
 
 function initMap() {
   var haightAshbury = {lat: 37.769, lng: -122.446};
@@ -21,6 +22,10 @@ function initMap() {
 
   map.addListener('click', function(event) {
     console.log("Latitude: "+event.latLng.lat()+" "+", longitude: "+event.latLng.lng());
+    // event.latLng.lng(0)
+    // event.latLng.lat(0)
+    deleteMarkers();
+
     let marker = new google.maps.Marker({
       position: {lat: event.latLng.lat(), lng: event.latLng.lng()},
       map: map,
@@ -32,35 +37,6 @@ function initMap() {
 
   });
 
-
-  var contentString = '<div id="content">'+
-  '<div id="siteNotice">'+
-  '</div>'+
-  '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-  '<div id="bodyContent">'+
-  '<p><b>Haight Ashbury</b>, also referred to as <b>the coolest area in San Francisco</b>, ' +
-  'cool and hip area in San Francisco, California. Lots of people come to SF '+
-  'in order to experience the amazing climate. San Francisco is a very expensive '+
-  'city, in fact the Bay Area in general is the most expensive in USA. '+
-  '</p>'+
-  '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-  'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-  '(last visited June 22, 2009).</p>'+
-  '</div>'+
-  '</div>';
-
-  var infowindow = new google.maps.InfoWindow({
-    content: contentString
-  });
-
-  var marker = new google.maps.Marker({
-    position: haightAshbury,
-    map: map,
-    title: 'Haight Ashbury'
-  });
-  marker.addListener('click', function() {
-    infowindow.open(map, marker);
-  });
 }
 
 
@@ -90,33 +66,15 @@ function deleteMarkers() {
 
 $(document).ready(function () {
 
-  //slideToggle
-  // $ ("#mapName").submit(function (){
-  //   $ ("#showmap").slideToggle ();
-  //   $ ( "#showmap title" ).focus ();
-  //   return false
-  // });
-
-
-
   console.log('fsfs');
   $('#submitForm').on('submit', () => {
-    console.log("");
-    const data = {
-      "Latitude": temp_marker.position.lat(),
-      "Longitude": temp_marker.position.lng(),
-      "Title": $('#title').val(),
-      "Description": $('#description').val(),
-      "Rating": $('#rating').val()
-    };
-    // declared an empoty object
-    console.log("THE MARKERS ARE HERE");
-    console.log(data);
+    $('#Longitude').val(temp_marker.position.lng())
+    $('#Latitude').val(temp_marker.position.lat())
+  });
 
-    // use data object to store values (lat/lng title ,etc)
-    // use ajax to send out this data object to the server
-    return false;
-  })
+
+
+
 
 })
 
@@ -125,12 +83,37 @@ $(document).ready(function () {
 
 
 
+//-----BACK UP OF AMITA's FUNCTION------
+
+   // declared an empty object
 
 
+    // use data object to store values (lat/lng title ,etc)
+    // use ajax to send out this data object to the server
 
 
+// console.log('fsfs');
+//   $('#submitForm').on('submit', () => {
+//     console.log("");
+//     data = {
+//       "Latitude": temp_marker.position.lat(),
+//       "Longitude": temp_marker.position.lng(),
+//       "Title": $('#title').val(),
+//       "Description": $('#description').val(),
+//       "Rating": $('#rating').val()
+//     };
+//     // declared an empoty object
+//     console.log("THE MARKERS ARE HERE");
+//     console.log(data);
 
+//     // use data object to store values (lat/lng title ,etc)
+//     // use ajax to send out this data object to the server
+//     return false;
+//   })
 
+// })
+
+//NOT SURE IF NEEDED STORING JUST IN CASE
 // $(() => {
 //   $.ajax({
 //     method: "GET",
