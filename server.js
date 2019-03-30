@@ -60,7 +60,7 @@ app.get("/", (req, res) => {
   return knex('curated_area')
     .select()
     .then(function (result) {
-      res.render("root", {results: result});
+      res.render("root", { results: result });
     })
 })
 
