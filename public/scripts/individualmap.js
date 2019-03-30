@@ -17,7 +17,15 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 15,
         center: originPoint,
-        mapTypeId: 'roadmap'
+        mapTypeId: 'roadmap',
+        zoomControl: true,
+        mapTypeControl: false,
+        scaleControl: true,
+        streetViewControl: false,
+        rotateControl: false,
+        fullscreenControl: false
+
+
     });
 
     // This event listener will call addMarker() when the map is clicked.
@@ -39,34 +47,34 @@ function initMap() {
     });
 
 
-    var contentString = '<div id="content">' +
-        '<div id="siteNotice">' +
-        '</div>' +
-        '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
-        '<div id="bodyContent">' +
-        '<p><b>Haight Ashbury</b>, also referred to as <b>the coolest area in San Francisco</b>, ' +
-        'cool and hip area in San Francisco, California. Lots of people come to SF ' +
-        'in order to experience the amazing climate. San Francisco is a very expensive ' +
-        'city, in fact the Bay Area in general is the most expensive in USA. ' +
-        '</p>' +
-        '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-        'https://en.wikipedia.org/w/index.php?title=Uluru</a> ' +
-        '(last visited June 22, 2009).</p>' +
-        '</div>' +
-        '</div>';
+    // var contentString = '<div id="content">' +
+    //     '<div id="siteNotice">' +
+    //     '</div>' +
+    //     '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+    //     '<div id="bodyContent">' +
+    //     '<p><b>Haight Ashbury</b>, also referred to as <b>the coolest area in San Francisco</b>, ' +
+    //     'cool and hip area in San Francisco, California. Lots of people come to SF ' +
+    //     'in order to experience the amazing climate. San Francisco is a very expensive ' +
+    //     'city, in fact the Bay Area in general is the most expensive in USA. ' +
+    //     '</p>' +
+    //     '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
+    //     'https://en.wikipedia.org/w/index.php?title=Uluru</a> ' +
+    //     '(last visited June 22, 2009).</p>' +
+    //     '</div>' +
+    //     '</div>';
 
-    var infowindow = new google.maps.InfoWindow({
-        content: contentString
-    });
+    // var infowindow = new google.maps.InfoWindow({
+    //     content: contentString
+    // });
 
-    var marker = new google.maps.Marker({
-        position: originPoint,
-        map: map,
-        title: 'Haight Ashbury'
-    });
-    marker.addListener('click', function () {
-        infowindow.open(map, marker);
-    });
+    // var marker = new google.maps.Marker({
+    //     position: originPoint,
+    //     map: map,
+    //     title: 'Haight Ashbury'
+    // });
+    // marker.addListener('click', function () {
+    //     infowindow.open(map, marker);
+    // });
 }
 
 

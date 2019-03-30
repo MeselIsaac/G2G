@@ -66,7 +66,6 @@ app.get("/create", (req, res) => {
 //browse a map
 app.get("/users/maps/:mapid", (req, res) => {
   let templateVars = {};
-  // in here, join the points entity so that we can use their coords as template vars.
   return knex('curated_area')
     .select()
     .where({ user_id: req.session.user_id, id: req.params.mapid })
