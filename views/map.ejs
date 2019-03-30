@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/individualmap.js"></script>
+
 
   <style>
     #Map {
@@ -54,16 +54,12 @@
 
   <main class="createmapcontainer">
     <header>
-      <h2 class="pickcity">First, name your map:</h2>
+      <h2 class="pickcity"><%= title %></h2>
     </header>
+    <p>
+      <%= description %>
+    </p>
 
-    <form id="mapName" action="#" method="post">
-      <div>
-        Map Title:<br>
-        <input type="text" id="title" placeholder="Enter map name here"><br>
-        <button type="submit">Create Map</button>
-      </div>
-    </form>
 
     <div id="showmap">
       <div id="floating-panel">
@@ -74,11 +70,12 @@
       <div id="map"></div>
       <p>Click on the map to add markers.</p>
 
+    </div>
 
 
-      <p>
-      </p>
-      <form id="submitForm" action="#" method="post">
+
+    <!-- add marker form -->
+    <!-- <form id="submitForm" action="#" method="post">
         <div>
           Location Title:<br>
           <input type="text" id="title" value="Australia"><br>
@@ -91,15 +88,22 @@
 
           <input type="submit" value="Submit">
         </div>
-      </form>
+      </form> -->
 
 
-    </div>
+
   </main>
-
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY_vuhzmSgKE3XRutXaWk2MUstXdnrKZY&callback=initMap">
     </script>
+  <script>
+    var lng = parseFloat('<%= long %>');
+    var lat = parseFloat('<%= lat %>');
+  </script>
+  <script type="text/javascript" src="/scripts/individualmap.js"></script>
+
+
+
 
 
 </body>
