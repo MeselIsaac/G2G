@@ -106,11 +106,12 @@
             <div class="card-group">
 
                 <div class="maplet card">
-                    <img class="static-map card-img-top" src="http://placekitten.com/200/139">
+                    <img class="static-map card-img-top" src=<%= `https://maps.googleapis.com/maps/api/staticmap?center=${results[0].lat},${results[0].long}&zoom=12&size=357x250&key=AIzaSyBY_vuhzmSgKE3XRutXaWk2MUstXdnrKZY`%>>
                     <div class="card-body">
-                        <h5 class="map-title card-title">!!TITLE FROM TEMPLATEVARS!!!</h5>
+
+                        <h5 class="map-title card-title"><%= results[0].title %></h5>
                         <p class="map-creator card-text">USERCREATOR FROM TEMPLATE VARS</p>
-                        <p class="map-desc card-text">DESCRIPTION FROM TEMPLATE VARS</p>
+                        <p class="map-desc card-text"><%= results[0].description %></p>
                         <p class="card-text"><small class="map-follow text-muted">Last updated 3 mins ago</small></p>
                     </div>
                 </div>
@@ -119,7 +120,7 @@
                 <div class="maplet card">
                     <img class="static-map card-img-top" src="http://placekitten.com/200/140">
                     <div class="card-body">
-                        <h5 class="map-title card-title">!!TITLE FROM TEMPLATEVARS!!!</h5>
+                        <h5 class="map-title card-title"><%= results[1].title %></h5>
                         <p class="map-creator card-text">USERCREATOR FROM TEMPLATE VARS</p>
                         <p class="map-desc card-text">DESCRIPTION FROM TEMPLATE VARS</p>
                         <p class="card-text"><small class="map-follow text-muted">Last updated 3 mins ago</small></p>
