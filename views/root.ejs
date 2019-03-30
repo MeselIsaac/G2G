@@ -10,102 +10,148 @@
     <meta name="description" content="you wanna go to the bathroom?">
     <meta name="author" content="MMA">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <style>
+        .jumbotron {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("http://placekitten.com/408/287");
+            height: 50vh;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
 
+        h1.display-4 {
+            color: white;
+        }
 
+        p.lead {
+            color: white;
+        }
 
+        .red-text {
+            color: red;
+        }
 
+        #about-us {
+            margin-bottom: 1rem;
+        }
 
-
+        div.maplet {
+            margin: 0 1rem;
+            border: none;
+        }
     </style>
 </head>
 
+
 <body>
+    <% include partials/_nav %>
+    <form class="form-inline" action="/" method="POST">
+        <div class="form-group mb-2">
+            <label for="email">Email:</label>
+            <input class="form-control" type="email" name="email" placeholder="email" style="width: 300px; margin: 1em">
 
-    <nav>
-        <header>G2G</header>
-        <a href="#mapscontainer">Maps</a>
-        <a href="#">Create Map</a>
-        <a href="#">My profile</a>
-        <a href="#">Login</a>
-        <a href="#">Logout</a>
-     <form class="form-inline" action="/" method="POST">
-      <div class="form-group mb-2">
-        <label for="email">Email:</label>
-        <input class="form-control" type="email" name="email" placeholder="email" style="width: 300px; margin: 1em">
-
-      </div>
-       <div class="form-group mb-2">
-        <label for="password">Password:</label>
-        <input class="form-control" type="password" name="password" placeholder="password" style="width: 300px; margin: 1em">
-        <button type="submit" class="btn btn-primary">Login</button>
-      </div>
+        </div>
+        <div class="form-group mb-2">
+            <label for="password">Password:</label>
+            <input class="form-control" type="password" name="password" placeholder="password"
+                style="width: 300px; margin: 1em">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
     </form>
-    </nav>
 
     <main>
-        <header id="splash">
-            <h1>Hello</h1>
-            <img src="http://placekitten.com/408/287" alt="">
-        </header>
 
-        <section id="info">
-            <header>
-                <h2>About our site</h2>
-            </header>
-            <article>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt recusandae necessitatibus laborum.
-                Iusto possimus neque nemo saepe alias nostrum culpa.
-            </article>
+        <section id="splash">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4">Gotta Go</h1>
+                    <p class="lead">Your one and only site for curated maps of great bathrooms!
+                    </p>
+                </div>
+            </div>
         </section>
 
-        <section id="maps-container">
-            <!-- 1 -->
-            <div class="maplet">
-                <img src="http://placekitten.com/200/139" alt="">
-                <header>
-                    <h3>Toronto bathrooms</h3>
-                </header>
-                <span>
-                    created by: Mesel
-                </span>
-                <article>
-                    Lorem ipsum dolor sit amet.
-                </article>
+        <section id="about-us">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h1>About us</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <p>
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis rem nihil possimus omnis
+                            atque molestiae suscipit at distinctio aliquid, eveniet rerum! Laudantium sed repellendus,
+                            quia maiores nulla veritatis sint dolorem. Expedita quaerat vero minus totam magnam hic aut
+                            quasi! Dolore id amet eum adipisci porro reprehenderit quos explicabo aliquid blanditiis?
+                        </p>
+                    </div>
+                    <div class="col-sm red-text">
+                        <p>
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis rem nihil possimus omnis
+                            atque molestiae suscipit at distinctio aliquid, eveniet rerum! Laudantium sed repellendus,
+                            quia maiores nulla veritatis sint dolorem. Expedita quaerat vero minus totam magnam hic aut
+                            quasi! Dolore id amet eum adipisci porro reprehenderit quos explicabo aliquid blanditiis?
+                        </p>
+                    </div>
+                </div>
             </div>
-            <!-- 2 -->
-            <div class="maplet">
-                <img src="http://placekitten.com/200/140" alt="">
-                <header>
-                    <h3>Toronto bathrooms</h3>
-                </header>
-                <span>
-                    created by: Mesel
-                </span>
-                <article>
-                    Lorem ipsum dolor sit amet.
-                </article>
-            </div>
-            <!-- 3 -->
-            <div class="maplet">
-                <img src="http://placekitten.com/200/139" alt="">
-                <header>
-                    <h3>Toronto bathrooms</h3>
-                </header>
-                <span>
-                    created by: Mesel
-                </span>
-                <article>
-                    Lorem ipsum dolor sit amet.
-                </article>
-            </div>
+        </section>
 
-            <span><button>load more...</button></span>
+        <section id="mapscontainer">
+            <div class="card-group">
+
+                <div class="maplet card">
+                    <img class="static-map card-img-top" src="http://placekitten.com/200/139">
+                    <div class="card-body">
+                        <h5 class="map-title card-title">!!TITLE FROM TEMPLATEVARS!!!</h5>
+                        <p class="map-creator card-text">USERCREATOR FROM TEMPLATE VARS</p>
+                        <p class="map-desc card-text">DESCRIPTION FROM TEMPLATE VARS</p>
+                        <p class="card-text"><small class="map-follow text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+
+
+                <div class="maplet card">
+                    <img class="static-map card-img-top" src="http://placekitten.com/200/140">
+                    <div class="card-body">
+                        <h5 class="map-title card-title">!!TITLE FROM TEMPLATEVARS!!!</h5>
+                        <p class="map-creator card-text">USERCREATOR FROM TEMPLATE VARS</p>
+                        <p class="map-desc card-text">DESCRIPTION FROM TEMPLATE VARS</p>
+                        <p class="card-text"><small class="map-follow text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+
+
+                <div class="maplet card">
+                    <img class="static-map card-img-top" src="http://placekitten.com/200/139">
+                    <div class="card-body">
+                        <h5 class="map-title card-title">!!TITLE FROM TEMPLATEVARS!!!</h5>
+                        <p class="map-creator card-text">USERCREATOR FROM TEMPLATE VARS</p>
+                        <p class="map-desc card-text">DESCRIPTION FROM TEMPLATE VARS</p>
+                        <p class="card-text"><small class="map-follow text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+
+                <!-- we will have to find a way to generate render cards in groups of three each to a .card-group in frontend js -->
         </section>
 
     </main>
+
+    <!-- bootstrap stuff -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 
 </body>
 
