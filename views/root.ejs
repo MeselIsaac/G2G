@@ -123,7 +123,7 @@
                         <h5 class="map-title card-title"><%= results[results.length-2].title %></h5>
                         <p class="map-creator card-text"><%= results[results.length-2].user_id %></p>
                         <p class="map-desc card-text"><%= results[results.length-2].description %></p>
-                        <p class="card-text"><small class="map-follow text-muted">Last updated 3 mins ago</small></p>
+                        <p class="card-text"><small class="map-follow text-muted">Last Updated <%= results[results.length-2].date_updated %></small></p>
                     </div>
                 </div>
 
@@ -134,7 +134,7 @@
                         <h5 class="map-title card-title"><%= results[results.length-3].title %></h5>
                         <p class="map-creator card-text">U<%= results[results.length-3].user_id %></p>
                         <p class="map-desc card-text"><%= results[results.length-3].description %></p>
-                        <p class="card-text"><small class="map-follow text-muted">Last updated 3 mins ago</small></p>
+                        <p class="card-text"><small class="map-follow text-muted">Last Updated <%= results[results.length-3].date_updated %></small></p>
                     </div>
                 </div>
 
