@@ -5,13 +5,19 @@ var map;
 var markers = [];
 var temp_marker = {};
 
+console.log(lng);
+// console.log(typeof latitude);
+// console.log(typeof longitude);
+// console.log(longitude);
+// console.log(latitude);
+
 function initMap() {
-    var haightAshbury = { lat: 37.769, lng: -122.446 };
+    var originPoint = { lat: lat, lng: lng };
 
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 2,
-        center: haightAshbury,
-        mapTypeId: 'terrain'
+        zoom: 15,
+        center: originPoint,
+        mapTypeId: 'roadmap'
     });
 
     // This event listener will call addMarker() when the map is clicked.
@@ -54,7 +60,7 @@ function initMap() {
     });
 
     var marker = new google.maps.Marker({
-        position: haightAshbury,
+        position: originPoint,
         map: map,
         title: 'Haight Ashbury'
     });
