@@ -51,7 +51,16 @@ app.use("/api/users", usersRoutes(knex));
 
 
 //-------------GET REQUESTS------------
-
+function convertDates(results) {
+  return results.map(result => {
+    var day = result.date_updated.getDay();
+    var month = result.date_updated.getMonth();
+    var year = result.date_updated.getFullYear();
+    var date = day + "-" + month + "-" + year;
+    result.date_updated = date
+    return result
+  });
+}
 //browse index/root
 app.get("/", (req, res) => {
   let templateVars = {};
@@ -60,7 +69,9 @@ app.get("/", (req, res) => {
   return knex('curated_area')
     .select()
     .then(function (result) {
-      res.render("root", {results: result});
+      var results = convertDates(result)
+      console.log("results", results);
+      res.render("root", {results: results});
     })
 })
 
@@ -92,7 +103,12 @@ app.get("/users/maps/:mapid", (req, res) => {
 
 //browse user profile
 app.get("/users/:id/", (req, res) => {
-  res.render("profile");
+  return knex('users')
+    .select()
+    .where({id: req.params.id})
+    .then(function (results) {
+      res.render("profile", {results: results});
+    });
 });
 
 //view point data
