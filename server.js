@@ -150,10 +150,12 @@ app.post("/logout", (req, res) => {
 //create a new map
 app.post("/create", (req, res) => {
 
-  knex('curated_area').insert({ user_id: req.session.user_id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
-    .then(function (rows) {
-      console.log('look', rows)
-      res.redirect('/')
+  knex('curated_area').insert({ user_id: req.session.user_id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat }).returning('id')
+  .then(function (rows) {
+    let goHere = rows[0]
+    console.log("GO HERE", goHere)
+
+      res.redirect('/users/maps/' + goHere)
     })
 
 
@@ -162,8 +164,16 @@ app.post("/create", (req, res) => {
 });
 
 //create a point on a map
-app.post("/maps/:mapid/:point", (req, res) => {
+app.post("/newPoint", (req, res) => {
+  knex('points').insert({curated_area_id: req.params.id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
+  .then(function (rows) {
+    // let goHere = rows[0]
+    // console.log("GO HERE", goHere)
+
+      res.redirect('/')
+    })
   /*post a point to a map here*/
+
 })
 
 //----------- PUT REQUESTS---------------
