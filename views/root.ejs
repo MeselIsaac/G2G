@@ -106,33 +106,34 @@
             <div class="card-group">
 
                 <div class="maplet card">
-                    <img class="static-map card-img-top" src="http://placekitten.com/200/139">
+                    <img class="static-map card-img-top" src=<%= `https://maps.googleapis.com/maps/api/staticmap?center=${results[results.length-1].lat},${results[results.length-1].long}&zoom=12&size=357x250&key=AIzaSyBY_vuhzmSgKE3XRutXaWk2MUstXdnrKZY`%>>
                     <div class="card-body">
-                        <h5 class="map-title card-title">!!TITLE FROM TEMPLATEVARS!!!</h5>
-                        <p class="map-creator card-text">USERCREATOR FROM TEMPLATE VARS</p>
-                        <p class="map-desc card-text">DESCRIPTION FROM TEMPLATE VARS</p>
+
+                        <h5 class="map-title card-title"><%= results[results.length-1].title %></h5>
+                        <p class="map-creator card-text"><%= results[results.length-1].user_id %></p>
+                        <p class="map-desc card-text"><%= results[results.length-1].description %></p>
+                        <p class="card-text"><small class="map-follow text-muted">Last Updated <%= results[results.length-1].date_updated %></small></p>
+                    </div>
+                </div>
+
+
+                <div class="maplet card">
+                    <img class="static-map card-img-top" src=<%= `https://maps.googleapis.com/maps/api/staticmap?center=${results[results.length-2].lat},${results[results.length-2].long}&zoom=12&size=357x250&key=AIzaSyBY_vuhzmSgKE3XRutXaWk2MUstXdnrKZY`%>>
+                    <div class="card-body">
+                        <h5 class="map-title card-title"><%= results[results.length-2].title %></h5>
+                        <p class="map-creator card-text"><%= results[results.length-2].user_id %></p>
+                        <p class="map-desc card-text"><%= results[results.length-2].description %></p>
                         <p class="card-text"><small class="map-follow text-muted">Last updated 3 mins ago</small></p>
                     </div>
                 </div>
 
 
                 <div class="maplet card">
-                    <img class="static-map card-img-top" src="http://placekitten.com/200/140">
+                    <img class="static-map card-img-top" src=<%= `https://maps.googleapis.com/maps/api/staticmap?center=${results[results.length-3].lat},${results[results.length-3].long}&zoom=12&size=357x250&key=AIzaSyBY_vuhzmSgKE3XRutXaWk2MUstXdnrKZY`%>>
                     <div class="card-body">
-                        <h5 class="map-title card-title">!!TITLE FROM TEMPLATEVARS!!!</h5>
-                        <p class="map-creator card-text">USERCREATOR FROM TEMPLATE VARS</p>
-                        <p class="map-desc card-text">DESCRIPTION FROM TEMPLATE VARS</p>
-                        <p class="card-text"><small class="map-follow text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
-
-
-                <div class="maplet card">
-                    <img class="static-map card-img-top" src="http://placekitten.com/200/139">
-                    <div class="card-body">
-                        <h5 class="map-title card-title">!!TITLE FROM TEMPLATEVARS!!!</h5>
-                        <p class="map-creator card-text">USERCREATOR FROM TEMPLATE VARS</p>
-                        <p class="map-desc card-text">DESCRIPTION FROM TEMPLATE VARS</p>
+                        <h5 class="map-title card-title"><%= results[results.length-3].title %></h5>
+                        <p class="map-creator card-text">U<%= results[results.length-3].user_id %></p>
+                        <p class="map-desc card-text"><%= results[results.length-3].description %></p>
                         <p class="card-text"><small class="map-follow text-muted">Last updated 3 mins ago</small></p>
                     </div>
                 </div>

@@ -60,15 +60,7 @@ app.get("/", (req, res) => {
   return knex('curated_area')
     .select()
     .then(function (result) {
-      for (let key in result) {
-        templateVars = {
-          long: result[key].long,
-          lat: result[key].lat,
-          title: result[key].title,
-          description: result[key].description
-        }
-      }
-      res.render("root", templateVars);
+      res.render("root", {results: result});
     })
 })
 
@@ -207,5 +199,3 @@ app.delete("/maps/:id/:point", (req, res) => {
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
-
-
