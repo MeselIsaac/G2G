@@ -52,23 +52,23 @@
 
 
     <form id="submitPointForm" action="/newPoint" method="post">
-        <div>
-          Map Title:<br>
-          <input type="text" id="title" name='title' placeholder="Enter map name here"><br>
+      <div>
+        Map Title:<br>
+        <input type="text" id="title" name='title' placeholder="Enter map name here"><br>
 
-          Description:<br>
-          <input type="text" id="description" name='description' placeholder="Enter description here"><br>
-
-
-          <input type="text" id="Longitude" name='long' placeholder="Longitude"><br>
+        Description:<br>
+        <input type="text" id="description" name='description' placeholder="Enter description here"><br>
 
 
-          <input type="text" id="Latitude" name='lat' placeholder="Latitude"><br>
+        <input type="text" id="Longitude" name='long' placeholder="Longitude"><br>
 
 
-          <input type="submit" value="Submit">
-        </div>
-      </form>
+        <input type="text" id="Latitude" name='lat' placeholder="Latitude"><br>
+
+
+        <input type="submit" value="Submit">
+      </div>
+    </form>
 
 
 
@@ -82,7 +82,8 @@
     var lng = parseFloat('<%= long %>');
     var lat = parseFloat('<%= lat %>');
   </script>
-  <script type="text/javascript" src="/scripts/individualmap.js"></script>
+  <!-- <script type="text/javascript" src="/scripts/individualmap.js"></script> -->
+  <script type="text/javascript" src="/scripts/populatemap.js"></script>
   <!-- bootstrap stuff -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
