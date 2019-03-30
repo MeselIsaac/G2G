@@ -1,6 +1,7 @@
-"use strict";
 
+"use strict";
 require('dotenv').config();
+// require('./public/scripts/app.js');
 
 const PORT = process.env.PORT || 8080;
 const ENV = process.env.ENV || "development";
@@ -90,6 +91,7 @@ app.get("/maps/:mapid/:point", (req, res) => {
       res.status(500).end()
       return
     } else if (rows[0] === undefined) {
+      console.log(rows[0])
       knex('users').insert({password: req.body.password, email: req.body.email}).returning('id')
       .asCallback(function(rows) {
         if (err) {
@@ -116,7 +118,7 @@ app.post("/logout", (req, res) => {
 
 //create a new map
 app.post("/create", (req, res) => {
-  knex('curated_area').insert({ user_id: req.session.user_id, title: req.body.title})
+  knex('curated_area').insert({ user_id: req.session.user_id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
   .then(function(rows) {
     console.log('look', rows)
     res.redirect('/')
@@ -162,3 +164,5 @@ app.delete("/maps/:id/:point", (req, res) => {
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
+
