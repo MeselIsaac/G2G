@@ -43,6 +43,7 @@ function initMap() {
         temp_marker = marker;
         markers.push(marker);
         console.log(markers);
+        console.log("MARKER TEXZT", marker.position)
 
     });
 
@@ -104,33 +105,60 @@ function deleteMarkers() {
 
 $(document).ready(function () {
 
-    //slideToggle
-    $("#mapName").submit(function () {
-        $("#showmap").slideToggle();
-        $("#showmap title").focus();
-        return false
-    });
+console.log(window.location);
 
 
 
-    console.log('fsfs');
-    $('#submitForm').on('submit', () => {
-        console.log("");
-        const data = {
-            "Latitude": temp_marker.position.lat(),
-            "Longitude": temp_marker.position.lng(),
-            "Title": $('#title').val(),
-            "Description": $('#description').val(),
-            "Rating": $('#rating').val()
-        };
-        // declared an empoty object
-        console.log("THE MARKERS ARE HERE");
-        console.log(data);
 
-        // use data object to store values (lat/lng title ,etc)
-        // use ajax to send out this data object to the server
-        return false;
-    })
+$(() => {
+  $.ajax({
+    method: "POST",
+    url: "/newPoint"
+  }).done((users) => {
+    for(user of users) {
+      $("<div>").text(user.name).appendTo($("body"));
+    }
+  });;
+});
+
+
+  console.log('fsfs');
+  $('#submitPointForm').on('submit', () => {
+    $('#Longitude').val(temp_marker.position.lng())
+    $('#Latitude').val(temp_marker.position.lat())
+  });
+
+
+
+ // //slideToggle
+    // $("#mapName").submit(function () {
+    //     $("#showmap").slideToggle();
+    //     $("#showmap title").focus();
+    //     return false
+    // });
+
+
+
+    // console.log('fsfs');
+    // $('#submitForm').on('submit', () => {
+    //     console.log("");
+    //     const data = {
+    //         "Latitude": temp_marker.position.lat(),
+    //         "Longitude": temp_marker.position.lng(),
+    //         "Title": $('#title').val(),
+    //         "Description": $('#description').val(),
+    //         "Rating": $('#rating').val()
+    //     };
+    //     // declared an empoty object
+    //     console.log("THE MARKERS ARE HERE");
+    //     console.log(data);
+
+    //     // use data object to store values (lat/lng title ,etc)
+    //     // use ajax to send out this data object to the server
+    //     return false;
+    // })
+
+
 
 })
 
@@ -145,13 +173,4 @@ $(document).ready(function () {
 
 
 
-// $(() => {
-//   $.ajax({
-//     method: "GET",
-//     url: "/api/users"
-//   }).done((users) => {
-//     for(user of users) {
-//       $("<div>").text(user.name).appendTo($("body"));
-//     }
-//   });;
-// });
+
