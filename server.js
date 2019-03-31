@@ -68,7 +68,7 @@ app.get("/", (req, res) => {
   // in here, join the points entity so that we can use their coords as template vars.
   return knex('curated_area')
     .select()
-    .then(function (result) {
+    .then(function (results) {
       // var results = convertDates(result)
       console.log("results", results);
       res.render("root", {results: results});
