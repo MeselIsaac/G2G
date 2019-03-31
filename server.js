@@ -107,6 +107,7 @@ app.get("/users/:id/", (req, res) => {
     .select()
     .where({id: req.params.id})
     .then(function (results) {
+      console.log("Results", results);
       res.render("profile", {results: results});
     });
 });
