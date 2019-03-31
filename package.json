@@ -24,6 +24,8 @@
     "pg": "7.9.0"
   },
   "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-sass": "^4.0.2",
     "nodemon": "^1.9.2"
   }
 }

@@ -14,7 +14,7 @@
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <style>
         .jumbotron {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("http://placekitten.com/408/287");
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/splash.jpeg');
             height: 50vh;
             background-position: center;
             background-repeat: no-repeat;
@@ -106,35 +106,53 @@
             <div class="card-group">
 
                 <div class="maplet card">
-                    <img class="static-map card-img-top" src=<%= `https://maps.googleapis.com/maps/api/staticmap?center=${results[results.length-1].lat},${results[results.length-1].long}&zoom=12&size=357x250&key=AIzaSyBY_vuhzmSgKE3XRutXaWk2MUstXdnrKZY`%>>
+                    <img class="static-map card-img-top"
+                        src=<%= `https://maps.googleapis.com/maps/api/staticmap?center=${results[results.length-1].lat},${results[results.length-1].long}&zoom=12&size=357x250&key=AIzaSyBY_vuhzmSgKE3XRutXaWk2MUstXdnrKZY`%>>
                     <div class="card-body">
 
-                        <h5 class="map-title card-title"><%= results[results.length-1].title %></h5>
+                        <h5 class="map-title card-title">
+                            <a href="http://localhost:8080/users/maps/<%= results[results.length-1].id %>">
+                                <%= results[results.length-1].title %>
+                            </a>
+                        </h5>
                         <p class="map-creator card-text"><%= results[results.length-1].user_id %></p>
                         <p class="map-desc card-text"><%= results[results.length-1].description %></p>
-                        <p class="card-text"><small class="map-follow text-muted">Last Updated March 31st 2019</small></p>
+                        <p class="card-text"><small class="map-follow text-muted">Last Updated March 31st 2019</small>
+                        </p>
                     </div>
                 </div>
 
 
                 <div class="maplet card">
-                    <img class="static-map card-img-top" src=<%= `https://maps.googleapis.com/maps/api/staticmap?center=${results[results.length-2].lat},${results[results.length-2].long}&zoom=12&size=357x250&key=AIzaSyBY_vuhzmSgKE3XRutXaWk2MUstXdnrKZY`%>>
+                    <img class="static-map card-img-top"
+                        src=<%= `https://maps.googleapis.com/maps/api/staticmap?center=${results[results.length-2].lat},${results[results.length-2].long}&zoom=12&size=357x250&key=AIzaSyBY_vuhzmSgKE3XRutXaWk2MUstXdnrKZY`%>>
                     <div class="card-body">
-                        <h5 class="map-title card-title"><%= results[results.length-2].title %></h5>
+                        <h5 class="map-title card-title">
+                            <a href="http://localhost:8080/users/maps/<%= results[results.length-2].id %>">
+                                <%= results[results.length-2].title %>
+                            </a>
+                        </h5>
                         <p class="map-creator card-text"><%= results[results.length-2].user_id %></p>
                         <p class="map-desc card-text"><%= results[results.length-2].description %></p>
-                        <p class="card-text"><small class="map-follow text-muted">Last Updated March 31st 2019</small></p>
+                        <p class="card-text"><small class="map-follow text-muted">Last Updated March 31st 2019</small>
+                        </p>
                     </div>
                 </div>
 
 
                 <div class="maplet card">
-                    <img class="static-map card-img-top" src=<%= `https://maps.googleapis.com/maps/api/staticmap?center=${results[results.length-3].lat},${results[results.length-3].long}&zoom=12&size=357x250&key=AIzaSyBY_vuhzmSgKE3XRutXaWk2MUstXdnrKZY`%>>
+                    <img class="static-map card-img-top"
+                        src=<%= `https://maps.googleapis.com/maps/api/staticmap?center=${results[results.length-3].lat},${results[results.length-3].long}&zoom=12&size=357x250&key=AIzaSyBY_vuhzmSgKE3XRutXaWk2MUstXdnrKZY`%>>
                     <div class="card-body">
-                        <h5 class="map-title card-title"><%= results[results.length-3].title %></h5>
+                        <h5 class="map-title card-title">
+                            <a href="http://localhost:8080/users/maps/<%= results[results.length-3].id %>">
+                                <%= results[results.length-3].title %>
+                            </a>
+                        </h5>
                         <p class="map-creator card-text">U<%= results[results.length-3].user_id %></p>
                         <p class="map-desc card-text"><%= results[results.length-3].description %></p>
-                        <p class="card-text"><small class="map-follow text-muted">Last Updated March 31st 2019</small></p>
+                        <p class="card-text"><small class="map-follow text-muted">Last Updated March 31st 2019</small>
+                        </p>
                     </div>
                 </div>
 
