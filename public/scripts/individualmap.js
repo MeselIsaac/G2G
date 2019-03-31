@@ -4,6 +4,7 @@
 var map;
 var markers = [];
 var temp_marker = {};
+var pointsStorage = []
 
 console.log(lng);
 // console.log(typeof latitude);
@@ -34,6 +35,7 @@ function initMap() {
     // });
 
     map.addListener('click', function (event) {
+      pointsStorage.push({lat: event.latLng.lat(), long: event.latLng.lng()})
         console.log("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
         let marker = new google.maps.Marker({
             position: { lat: event.latLng.lat(), lng: event.latLng.lng() },
@@ -46,6 +48,78 @@ function initMap() {
         console.log("MARKER TEXZT", marker.position)
 
     });
+
+
+//-------------------------------------COPIED AND INSERTED THE ABOVE---------------------------
+// In the following example, markers appear when the user clicks on the map.
+// The markers are stored in an array.
+// The user can then click an option to hide, show or delete the markers.
+// $(document).ready(function () {
+// var map;
+// var markers = [];
+// var temp_marker = {};
+// var pointsStorage = []
+
+// // console.log(lng);
+// // console.log(typeof latitude);
+// // console.log(typeof longitude);
+// // console.log(longitude);
+// // console.log(latitude);
+
+// function initMap() {
+//     var originPoint = { lat: lat, lng: lng };
+
+//     map = new google.maps.Map(document.getElementById('map'), {
+//         zoom: 13,
+//         center: originPoint,
+//         mapTypeId: 'roadmap',
+//         zoomControl: true,
+//         mapTypeControl: false,
+//         scaleControl: true,
+//         streetViewControl: false,
+//         rotateControl: false,
+//         fullscreenControl: false
+
+
+
+
+//     // This event listener will call addMarker() when the map is clicked.
+//     // map.addListener('click', function(event) {
+//     //   addMarker(event.latLng);
+//     });
+
+//     map.addListener('click', function (event) {
+
+//       pointsStorage.push({lat: event.latLng.lat(), long: event.latLng.lng()})
+//       // localStorage.setItem("lat", event.latLng.lat())
+//       // localStorage.setItem("long", event.latLng.lng())
+
+//       // sessionStorage.setItem(position : )
+
+//         console.log("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
+//         let marker = new google.maps.Marker({
+//             position: { lat: event.latLng.lat(), lng: event.latLng.lng() },
+//             map: map,
+//             title: 'Click to zoom'
+//         });
+//         temp_marker = marker;
+
+//         // pointsStorage.push(event.latLng.lat(), event.latLng.lng() )
+//         markers.push(marker);
+//         console.log(markers);
+
+//         // console.log("TEMP_MARKER =======", temp_marker)
+//         // console.log("POINTSTATORA", pointsStorage)
+//         // console.log("POINTS[0]====", pointsStorage[0])
+//         // console.log("POINTS[0]LAT===", pointsStorage[0].lat)
+//         //  console.log("POINTS[0]LONG====", pointsStorage[0].long)
+//         //  console.log("POINTS[1]====", pointsStorage[1])
+//         // console.log("POINTS[1]LAT===", pointsStorage[1].lat)
+//         //  console.log("POINTS[1]LONG====", pointsStorage[1].long)
+
+
+
+//     });
 
 
     // var contentString = '<div id="content">' +
@@ -76,7 +150,7 @@ function initMap() {
     // marker.addListener('click', function () {
     //     infowindow.open(map, marker);
     // });
-}
+// }
 
 
 // Sets the map on all markers in the array.
@@ -103,30 +177,50 @@ function deleteMarkers() {
 }
 
 
-$(document).ready(function () {
-
-console.log(window.location);
 
 
+$(function() {
 
 
-$(() => {
+
+
+
+$('#submitPointForm').on('submit', (event) => {
+  event.preventDefault()
+
+var curated_id = window.location.pathname.slice(12);
+// var data_to_send = JSON.stringify(pointsStorage);
+
+// console.log("data_to_string", data_to_send)
+
   $.ajax({
-    method: "POST",
-    url: "/newPoint"
-  }).done((users) => {
-    for(user of users) {
-      $("<div>").text(user.name).appendTo($("body"));
+    // dataType: 'json',
+    // contentType: 'application/json; charset=utf-8',
+    type: "POST",
+    url: "/newPoint",
+    data: {"myArray": JSON.stringify(pointsStorage), id: curated_id, title: $("#title").val(), description: $("#description").val()},
+    success: function() {
+      pointsStorage = []
+      $("#title").val('')
+      $("#description").val('')
+      console.log("SUCCESS")
+
+    },
+    error: function() {
+      alert('error')
     }
-  });;
-});
-
-
-  console.log('fsfs');
-  $('#submitPointForm').on('submit', () => {
-    $('#Longitude').val(temp_marker.position.lng())
-    $('#Latitude').val(temp_marker.position.lat())
   });
+
+})
+
+
+
+
+  // console.log('fsfs');
+  // $('#submitPointForm').on('submit', () => {
+  //   $('#Longitude').val(temp_marker.position.lng())
+  //   $('#Latitude').val(temp_marker.position.lat())
+  // });
 
 
 
@@ -157,20 +251,5 @@ $(() => {
     //     // use ajax to send out this data object to the server
     //     return false;
     // })
-
-
-
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

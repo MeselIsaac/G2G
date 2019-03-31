@@ -92,7 +92,7 @@ app.get("/users/maps/:mapid", async (req, res) => {
       .from('curated_area')
       .where('curated_area.id', '=', req.params.mapid)
   ])
-  //{coords: lat lng, content: h1whatever} 
+  //{coords: lat lng, content: h1whatever}
   const markers = points.map(function (point, index) {
     return {
       coords: { lat: point.lat, lng: point.long },
@@ -105,7 +105,7 @@ app.get("/users/maps/:mapid", async (req, res) => {
   res.render("map", templateVars)
 
 });
-
+//ABOVE THIS ------------------
 //browse user profile
 app.get("/users/:id/", (req, res) => {
   return knex('users')
@@ -121,6 +121,8 @@ app.get("/users/:id/", (req, res) => {
 app.get("/maps/:mapid/:point", (req, res) => {
   res.render(/*maps id where point is*/)
 })
+
+
 
 
 
@@ -179,15 +181,26 @@ app.post("/create", (req, res) => {
 
 //create a point on a map
 app.post("/newPoint", (req, res) => {
-  knex('points').insert({ curated_area_id: req.params.id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
-    .then(function (rows) {
-      // let goHere = rows[0]
-      // console.log("GO HERE", goHere)
+// <<<<<<< HEAD
+//   knex('points').insert({ curated_area_id: req.params.id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
+//     .then(function (rows) {
+//       // let goHere = rows[0]
+//       // console.log("GO HERE", goHere)
+// =======
+var obj = JSON.parse(req.body.myArray)
+
+  for (var i = 0; i < obj.length; i++) {
+    // console.log("OBJECt LOOP --------------------->", obj[i].long "         " obj[i].lat)
+  knex('points').insert({curated_area_id: req.body.id, long: obj[i].long, lat: obj[i].lat, title: req.body.title, description: req.body.description})
+  .then(function (rows) {
+
+    console.log("ROWWWWWW -------->", rows)
+// >>>>>>> points
 
       res.redirect('/')
     })
   /*post a point to a map here*/
-
+}
 })
 
 //----------- PUT REQUESTS---------------
