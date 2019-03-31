@@ -70,26 +70,75 @@ app.get("/create", (req, res) => {
 });
 
 //browse a map
-app.get("/users/maps/:mapid", (req, res) => {
-  let templateVars = {};
-  return knex('curated_area')
-    .select()
-    .where({ id: req.params.mapid })
-    .then(function (result) {
-      for (let key in result) {
-        templateVars = {
-          long: result[key].long,
-          lat: result[key].lat,
-          title: result[key].title,
-          description: result[key].description
-        }
-      }
-      console.log(templateVars);
-      res.render("map", templateVars);
-    })
+// app.get("/users/maps/:mapid", (req, res) => {
+//   let templateVars = {};
+//   return knex('curated_area')
+//     .select()
+//     .where({ id: req.params.mapid })
+//     console.log("RETURN REQ PARAMIS==============", req.params.mapid)
+//     .then(function (result) {
+//       for (let key in result) {
+//         templateVars = {
+//           long: result[key].long,
+//           lat: result[key].lat,
+//           title: result[key].title,
+//           description: result[key].description
+//         }
+//       }
+//       console.log(templateVars);
+//       res.render("map", templateVars);
+//     })
 
+// });
+
+app.get("/users/maps/:mapid", async (req, res) => {
+  const [points, curatedArea] = await Promise.all([
+    knex('points')
+      .select()
+      .where('curated_area_id', '=', req.params.mapid),
+    knex
+      .select('*')
+      .from('curated_area')
+      .where('curated_area.id', '=', req.params.mapid)
+  ])
+
+
+  // let templateVars;
+  // const curatedArea = await knex
+  //   .select('*')
+  //   .from('curated_area')
+  //   // .join('points', 'curated_area.id', '=', 'points.curated_area_id')
+  //   .where('curated_area.id', '=', req.params.mapid)
+
+  //{coords: lat lng, content: h1whatever}
+  const markers = points.map(function (point, index) {
+
+    return {
+      coords: { lat: point.lat, lng: point.long },
+      content: point.title
+
+    }
+  })
+
+  const templateVars = { ...curatedArea[0], markers: markers }
+  console.log(templateVars);
+
+  res.render("map", templateVars)
+//---TO HERE__________________________________________________________
+
+  // const pointsVars = await knex('points')
+  //   .select()
+  //   .where('curated_area_id', '=', req.params.mapid)
+  // console.log(pointsVars);
+
+
+  // res.render("map", { ...templateVars, pointsVars });
+  // //   // res.render("map", templateVars);
+  // })
+
+//AND ALSO THIS BELOW___________
 });
-
+//ABOVE THIS ------------------
 //browse user profile
 app.get("/users/:id/", (req, res) => {
   res.render("profile");
@@ -99,6 +148,8 @@ app.get("/users/:id/", (req, res) => {
 app.get("/maps/:mapid/:point", (req, res) => {
   res.render(/*maps id where point is*/)
 })
+
+
 
 
 
@@ -157,15 +208,31 @@ app.post("/create", (req, res) => {
 
 //create a point on a map
 app.post("/newPoint", (req, res) => {
-  knex('points').insert({curated_area_id: req.params.id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
+var obj = JSON.parse(req.body.myArray)
+console.log("DESC------------------------------------------>", req.body.description)
+console.log(obj)
+
+
+// console.log("CURATED MAP ID=====", req.body.id)
+// console.log(window.location.pathname.slice(12))
+// console.log(obj)
+//   console.log("OBJECT", obj)
+//   console.log("OBJECT[0]", obj[0])
+//   console.log("OBJECT[0].LATTTTT", obj[0].lat)
+//   console.log("OBJECT[0].LOOOOOOONNNG", obj[0].long)
+
+// knex('points').insert({curated_area_id: req.params.id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
+  for (var i = 0; i < obj.length; i++) {
+    // console.log("OBJECt LOOP --------------------->", obj[i].long "         " obj[i].lat)
+  knex('points').insert({curated_area_id: req.body.id, long: obj[i].long, lat: obj[i].lat, title: req.body.title, description: req.body.description})
   .then(function (rows) {
-    // let goHere = rows[0]
-    // console.log("GO HERE", goHere)
+
+    console.log("ROWWWWWW -------->", rows)
 
       res.redirect('/')
     })
   /*post a point to a map here*/
-
+}
 })
 
 //----------- PUT REQUESTS---------------
