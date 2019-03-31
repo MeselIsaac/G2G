@@ -70,23 +70,28 @@ app.get("/create", (req, res) => {
 });
 
 //browse a map
-app.get("/users/maps/:mapid", (req, res) => {
-  let templateVars = {};
-  return knex('curated_area')
-    .select()
-    .where({ id: req.params.mapid })
-    .then(function (result) {
-      for (let key in result) {
-        templateVars = {
-          long: result[key].long,
-          lat: result[key].lat,
-          title: result[key].title,
-          description: result[key].description
-        }
-      }
-      console.log(templateVars);
-      res.render("map", templateVars);
-    })
+app.get("/users/maps/:mapid", async (req, res) => {
+  const [points, curatedArea] = await Promise.all([
+    knex
+      .select('*')
+      .from('points')
+      .where('curated_area_id', '=', req.params.mapid),
+    knex
+      .select('*')
+      .from('curated_area')
+      .where('curated_area.id', '=', req.params.mapid)
+  ])
+  //{coords: lat lng, content: h1whatever} 
+  const markers = points.map(function (point, index) {
+    return {
+      coords: { lat: point.lat, lng: point.long },
+      content: point.title
+    }
+  })
+  const templateVars = { ...curatedArea[0], markers: JSON.stringify(markers) }
+  console.log("these are the templatevars,", templateVars);
+
+  res.render("map", templateVars)
 
 });
 
@@ -143,9 +148,9 @@ app.post("/logout", (req, res) => {
 app.post("/create", (req, res) => {
 
   knex('curated_area').insert({ user_id: req.session.user_id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat }).returning('id')
-  .then(function (rows) {
-    let goHere = rows[0]
-    console.log("GO HERE", goHere)
+    .then(function (rows) {
+      let goHere = rows[0]
+      console.log("GO HERE", goHere)
 
       res.redirect('/users/maps/' + goHere)
     })
@@ -157,10 +162,10 @@ app.post("/create", (req, res) => {
 
 //create a point on a map
 app.post("/newPoint", (req, res) => {
-  knex('points').insert({curated_area_id: req.params.id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
-  .then(function (rows) {
-    // let goHere = rows[0]
-    // console.log("GO HERE", goHere)
+  knex('points').insert({ curated_area_id: req.params.id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
+    .then(function (rows) {
+      // let goHere = rows[0]
+      // console.log("GO HERE", goHere)
 
       res.redirect('/')
     })

@@ -15,30 +15,18 @@ function initMap() {
 
     });
 
+    console.log(markers)
 
-    // get addmarker to work with an array: and then loop through array and call add marker once:
-    let markers = [
-        {
-            coords: { lat: 43.65, lng: -79.39 },
-            content: '<h1>templatevars</h2>'
-        },
-        {
-            coords: { lat: 43.64, lng: -79.40 },
-            content: '<h1>templatevars</h2>'
+    markers = JSON.parse(markers)
+
+    if (markers) {
+        // loop through markers
+        for (let i = 0; i < markers.length; i++) {
+            markers[i].coords.lat = parseFloat(markers[i].coords.lat)
+            markers[i].coords.lng = parseFloat(markers[i].coords.lng)
+            addMarker(markers[i]);
         }
-    ];
-
-    // loop through markers
-    for (let i = 0; i < markers.length; i++) {
-        addMarker(markers[i]);
     }
-
-    // addMarker(stuff from template vars)
-    // //test with yellowknife
-    // addMarker({
-    //     coords: { lat: 62.4540, long: 114.3718 },
-    //     content: '<h1>templatevars</h2>'
-    // });
 
     //add marker function
     function addMarker(pointObject) {
