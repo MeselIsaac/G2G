@@ -51,16 +51,16 @@ app.use("/api/users", usersRoutes(knex));
 
 
 //-------------GET REQUESTS------------
-function convertDates(results) {
-  return results.map(result => {
-    var day = result.date_updated.getDay();
-    var month = result.date_updated.getMonth();
-    var year = result.date_updated.getFullYear();
-    var date = day + "-" + month + "-" + year;
-    result.date_updated = date
-    return result
-  });
-}
+// function convertDates(results) {
+//   return results.map(result => {
+//     var day = result.date_updated.getDay();
+//     var month = result.date_updated.getMonth();
+//     var year = result.date_updated.getFullYear();
+//     var date = day + "-" + month + "-" + year;
+//     result.date_updated = date
+//     return result
+//   });
+// }
 //browse index/root
 app.get("/", (req, res) => {
   let templateVars = {};
@@ -69,7 +69,7 @@ app.get("/", (req, res) => {
   return knex('curated_area')
     .select()
     .then(function (result) {
-      var results = convertDates(result)
+      // var results = convertDates(result)
       console.log("results", results);
       res.render("root", {results: results});
     })
