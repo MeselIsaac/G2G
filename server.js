@@ -66,13 +66,9 @@ app.use("/api/users", usersRoutes(knex));
 //browse index/root
 app.get("/", (req, res) => {
   let templateVars = {};
-  // console.log("I AM HERE _____________");
-  // in here, join the points entity so that we can use their coords as template vars.
   return knex('curated_area')
     .select()
     .then(function (results) {
-      // var results = convertDates(result)<-- keep this blanked out as we're not using it
-      console.log("results", results);
       res.render("root", { results: results });
     })
 })
@@ -112,23 +108,23 @@ app.get("/users/maps/:mapid", async (req, res) => {
 app.get("/users/:id/", async (req, res) => {
   const [users, curated_area] = await Promise.all([
     knex
-    .select('*')
-    .from('users')
-    .where('id', '=', req.params.id),
+      .select('*')
+      .from('users')
+      .where('id', '=', req.params.id),
     knex
-    .select('*')
-    .from('curated_area')
-    .where('curated_area.user_id', '=', req.params.id)
+      .select('*')
+      .from('curated_area')
+      .where('curated_area.user_id', '=', req.params.id)
   ])
 
-const maps = curated_area.map(function (map) {
-  return {
-    map
-  }
-})
+  const maps = curated_area.map(function (map) {
+    return {
+      map
+    }
+  })
 
-const templateVars = { ...users[0], maps: JSON.stringify(maps)}
-console.log(templateVars);
+  const templateVars = { ...users[0], maps: JSON.stringify(maps) }
+  console.log(templateVars);
   res.render("profile", templateVars)
 
   //Below is the old app.get request for getting user bio and photo solely from the users table using knex. We replaced it with the above
