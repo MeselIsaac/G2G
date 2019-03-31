@@ -66,7 +66,7 @@ app.use("/api/users", usersRoutes(knex));
 //browse index/root
 app.get("/", (req, res) => {
   let templateVars = {};
-  console.log("I AM HERE _____________");
+  // console.log("I AM HERE _____________");
   // in here, join the points entity so that we can use their coords as template vars.
   return knex('curated_area')
     .select()
@@ -102,7 +102,7 @@ app.get("/users/maps/:mapid", async (req, res) => {
     }
   })
   const templateVars = { ...curatedArea[0], markers: JSON.stringify(markers) }
-  console.log("these are the templatevars,", templateVars);
+  // console.log("these are the templatevars,", templateVars);
 
   res.render("map", templateVars)
 
@@ -166,12 +166,12 @@ app.post('/', (req, res) => {
               res.status(500).end()
               return
             }
-            console.log('look', rows[0])
+            // console.log('look', rows[0])
             req.session.user_id = rows[0]
             res.redirect('/')
           })
       } else {
-        console.log('here', rows[0].id)
+        // console.log('here', rows[0].id)
         req.session.user_id = rows[0].id
         res.redirect('/');
       }
@@ -191,7 +191,7 @@ app.post("/create", (req, res) => {
   knex('curated_area').insert({ user_id: req.session.user_id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat }).returning('id')
     .then(function (rows) {
       let goHere = rows[0]
-      console.log("GO HERE", goHere)
+      // console.log("GO HERE", goHere)
 
       res.redirect('/users/maps/' + goHere)
     })
@@ -203,11 +203,9 @@ app.post("/create", (req, res) => {
 
 //create a point on a map
 app.post("/newPoint", (req, res) => {
-  knex('points').insert({ curated_area_id: req.params.id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
+  console.log("REQ BODY ID ", req.body.id);
+  knex('points').insert({ curated_area_id: req.body.id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
     .then(function (rows) {
-      // let goHere = rows[0]
-      // console.log("GO HERE", goHere)
-
       res.redirect('/')
     })
   /*post a point to a map here*/
