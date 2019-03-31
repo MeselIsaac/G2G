@@ -51,7 +51,9 @@ app.use("/api/users", usersRoutes(knex));
 
 
 //-------------GET REQUESTS------------
-// function convertDates(results) {
+//
+//You can leave the below convertDates function blanked out because it doesn't work when you add a new map to the DB
+//function convertDates(results) {
 //   return results.map(result => {
 //     var day = result.date_updated.getDay();
 //     var month = result.date_updated.getMonth();
@@ -69,7 +71,7 @@ app.get("/", (req, res) => {
   return knex('curated_area')
     .select()
     .then(function (results) {
-      // var results = convertDates(result)
+      // var results = convertDates(result)<-- keep this blanked out as we're not using it
       console.log("results", results);
       res.render("root", { results: results });
     })
@@ -92,7 +94,7 @@ app.get("/users/maps/:mapid", async (req, res) => {
       .from('curated_area')
       .where('curated_area.id', '=', req.params.mapid)
   ])
-  //{coords: lat lng, content: h1whatever} 
+  //{coords: lat lng, content: h1whatever}
   const markers = points.map(function (point, index) {
     return {
       coords: { lat: point.lat, lng: point.long },
@@ -107,14 +109,36 @@ app.get("/users/maps/:mapid", async (req, res) => {
 });
 
 //browse user profile
-app.get("/users/:id/", (req, res) => {
-  return knex('users')
-    .select()
-    .where({ id: req.params.id })
-    .then(function (results) {
-      console.log("Results", results);
-      res.render("profile", { results: results });
-    });
+app.get("/users/:id/", async (req, res) => {
+  const [users, curated_area] = await Promise.all([
+    knex
+    .select('*')
+    .from('users')
+    .where('id', '=', req.params.id),
+    knex
+    .select('*')
+    .from('curated_area')
+    .where('curated_area.user_id', '=', req.params.id)
+  ])
+
+const maps = curated_area.map(function (map) {
+  return {
+    map
+  }
+})
+
+const templateVars = { ...users[0], maps: JSON.stringify(maps)}
+console.log(templateVars);
+  res.render("profile", templateVars)
+
+  //Below is the old app.get request for getting user bio and photo solely from the users table using knex. We replaced it with the above
+  //return knex('users')
+  //   .select()
+  //   .where({ id: req.params.id })
+  //   .then(function (results) {
+  //     console.log("Results", results);
+  //     res.render("profile", { results: results });
+  //   });
 });
 
 //view point data
