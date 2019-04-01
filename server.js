@@ -51,7 +51,9 @@ app.use("/api/users", usersRoutes(knex));
 
 
 //-------------GET REQUESTS------------
-// function convertDates(results) {
+//
+//You can leave the below convertDates function blanked out because it doesn't work when you add a new map to the DB
+//function convertDates(results) {
 //   return results.map(result => {
 //     var day = result.date_updated.getDay();
 //     var month = result.date_updated.getMonth();
@@ -64,13 +66,9 @@ app.use("/api/users", usersRoutes(knex));
 //browse index/root
 app.get("/", (req, res) => {
   let templateVars = {};
-  console.log("I AM HERE _____________");
-  // in here, join the points entity so that we can use their coords as template vars.
   return knex('curated_area')
     .select()
     .then(function (results) {
-      // var results = convertDates(result)
-      console.log("results", results);
       res.render("root", { results: results });
     })
 })
@@ -100,21 +98,43 @@ app.get("/users/maps/:mapid", async (req, res) => {
     }
   })
   const templateVars = { ...curatedArea[0], markers: JSON.stringify(markers) }
-  console.log("these are the templatevars,", templateVars);
+  // console.log("these are the templatevars,", templateVars);
 
   res.render("map", templateVars)
 
 });
 //ABOVE THIS ------------------
 //browse user profile
-app.get("/users/:id/", (req, res) => {
-  return knex('users')
-    .select()
-    .where({ id: req.params.id })
-    .then(function (results) {
-      console.log("Results", results);
-      res.render("profile", { results: results });
-    });
+app.get("/users/:id/", async (req, res) => {
+  const [users, curated_area] = await Promise.all([
+    knex
+      .select('*')
+      .from('users')
+      .where('id', '=', req.params.id),
+    knex
+      .select('*')
+      .from('curated_area')
+      .where('curated_area.user_id', '=', req.params.id)
+  ])
+
+  const maps = curated_area.map(function (map) {
+    return {
+      map
+    }
+  })
+
+  const templateVars = { ...users[0], maps: JSON.stringify(maps) }
+  console.log(templateVars);
+  res.render("profile", templateVars)
+
+  //Below is the old app.get request for getting user bio and photo solely from the users table using knex. We replaced it with the above
+  //return knex('users')
+  //   .select()
+  //   .where({ id: req.params.id })
+  //   .then(function (results) {
+  //     console.log("Results", results);
+  //     res.render("profile", { results: results });
+  //   });
 });
 
 //view point data
@@ -144,12 +164,12 @@ app.post('/', (req, res) => {
               res.status(500).end()
               return
             }
-            console.log('look', rows[0])
+            // console.log('look', rows[0])
             req.session.user_id = rows[0]
             res.redirect('/')
           })
       } else {
-        console.log('here', rows[0].id)
+        // console.log('here', rows[0].id)
         req.session.user_id = rows[0].id
         res.redirect('/');
       }
@@ -169,7 +189,7 @@ app.post("/create", (req, res) => {
   knex('curated_area').insert({ user_id: req.session.user_id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat }).returning('id')
     .then(function (rows) {
       let goHere = rows[0]
-      console.log("GO HERE", goHere)
+      // console.log("GO HERE", goHere)
 
       res.redirect('/users/maps/' + goHere)
     })
@@ -181,27 +201,15 @@ app.post("/create", (req, res) => {
 
 //create a point on a map
 app.post("/newPoint", (req, res) => {
-// <<<<<<< HEAD
-//   knex('points').insert({ curated_area_id: req.params.id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
-//     .then(function (rows) {
-//       // let goHere = rows[0]
-//       // console.log("GO HERE", goHere)
-// =======
-var obj = JSON.parse(req.body.myArray)
 
-  for (var i = 0; i < obj.length; i++) {
-    // console.log("OBJECt LOOP --------------------->", obj[i].long "         " obj[i].lat)
-  knex('points').insert({curated_area_id: req.body.id, long: obj[i].long, lat: obj[i].lat, title: req.body.title, description: req.body.description})
-  .then(function (rows) {
-
-    console.log("ROWWWWWW -------->", rows)
-// >>>>>>> points
-
+  console.log("REQ BODY ID ", req.body.id);
+  knex('points').insert({ curated_area_id: req.body.id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
+    .then(function (rows) {
       res.redirect('/')
     })
   /*post a point to a map here*/
-}
 })
+
 
 //----------- PUT REQUESTS---------------
 

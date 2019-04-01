@@ -15,8 +15,6 @@ function initMap() {
 
     });
 
-    console.log(markers)
-
     markers = JSON.parse(markers)
 
     if (markers) {
@@ -47,3 +45,26 @@ function initMap() {
     }
 
 }
+
+// $('#submitPointForm').submit((event) => {
+//     var latitude = $('#Latitude').val(temp_marker.position.lat());
+//     var longitude = $('#Longitude').val(temp_marker.position.lng());
+//     var title = $('#title').val();
+//     var description = $('#description').val();
+//     event.preventDefault();
+//     $.ajax({
+//         type: 'POST',
+//         url: '/newPoint',
+//         data: {
+//             long: longitude,
+//             lat: latitude,
+//             title: title,
+//             description: description,
+//             id: path
+//         }
+//     })
+//         .success(() =>
+//             renderMarkers()
+//         )
+
+// })

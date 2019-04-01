@@ -17,9 +17,22 @@
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
 
   <style>
+    .createmapcontainer {
+      padding-top: 2rem;
+    }
+
     #Map {
       float: left;
       margin: 2em;
+      width: 70%;
+    }
+
+    #Longitude {
+      display: none;
+    }
+
+    #Latitude {
+      display: none;
     }
   </style>
 </head>
@@ -30,21 +43,53 @@
 
 
   <main class="createmapcontainer">
-    <header>
-      <h2 class="pickcity"><%= title %></h2>
-    </header>
-    <p>
-      <%= description %>
-    </p>
 
 
-    <!-- <div id="floating-panel">
-        <input onclick="clearMarkers();" type=button value="Hide Markers">
-        <input onclick="showMarkers();" type=button value="Show All Markers">
-        <input onclick="deleteMarkers();" type=button value="Delete Markers">
-      </div> -->
-    <div id="map"></div>
-    <p>Click on the map to add markers.</p>
+    <!-- the code below is some quick styling. there is a form there, but please use the older form below for post requests  -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md">
+          <div id="map"></div>
+          <p>Click on the map to add markers.</p>
+        </div>
+        <div class="col-md">
+          <header>
+            <h2 class="pickcity"><%= title %></h2>
+          </header>
+          <p>
+            <%= description %>
+          </p>
+          <form id="submitPointForm" class="form-group" action="/newPoint" method="post">
+            <div>
+              Title your Bathroom:<br>
+              <input type="text" id="title" class="form-control" name='title' placeholder="Enter map name here"><br>
+
+              Description:<br>
+              <textarea type="text" id="description" class="form-control" name='description'
+                placeholder="Enter description here" rows="3"></textarea></textarea>
+
+
+              <input type="text" id="Longitude" class="form-control" name='long' placeholder="Longitude"><br>
+
+
+              <input type="text" id="Latitude" name='lat' placeholder="Latitude"><br>
+
+
+              <button type="submit" class="btn btn-primary">submit</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
 
 
     <!-- </div> -->
@@ -73,7 +118,7 @@
 
 
   </main>
-  <span id="markers"><%= markers %></span>
+
 
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY_vuhzmSgKE3XRutXaWk2MUstXdnrKZY&callback=initMap">
@@ -86,10 +131,11 @@
   </script>
   <!-- mesel's working individual map js -->
 
-  <script type="text/javascript" src="/scripts/individualmap.js"></script>
+  <!-- <script type="text/javascript" src="/scripts/individualmap.js"></script> -->
+
 
   <!-- working points js file below -->
-  <!-- <script type="text/javascript" src="/scripts/populatemap.js"></script> -->
+  <script type="text/javascript" src="/scripts/populatemap.js"></script>
 
   <!-- bootstrap stuff -->
 

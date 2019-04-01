@@ -12,37 +12,38 @@ body {
   }
 }
 
-.pickcity {
-  margin-bottom: 10px;
-}
+// .pickcity {
+//   margin-bottom: 10px;
+// }
 
-.createmapcontainer div {
-  text-align: center;
-}
+// .createmapcontainer div {
+//   text-align: center;
+// }
 
-.createmapcontainer header {
-  text-align: center;
-}
+// .createmapcontainer header {
+//   text-align: center;
+// }
 
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
 #map {
   height: 425px;
+  color: pink;
 }
 
 
-#floating-panel {
-  top: 10px;
-  left: 25%;
-  z-index: 5;
-  background-color: #fff;
-  padding: 5px;
-  border: 1px solid #999;
-  text-align: center;
-  font-family: 'Roboto','sans-serif';
-  line-height: 30px;
-  padding-left: 10px;
-}
+// #floating-panel {
+//   top: 10px;
+//   left: 25%;
+//   z-index: 5;
+//   background-color: #fff;
+//   padding: 5px;
+//   border: 1px solid #999;
+//   text-align: center;
+//   font-family: 'Roboto','sans-serif';
+//   line-height: 30px;
+//   padding-left: 10px;
+// }
 
 // #showmap {
 //   display: none;
