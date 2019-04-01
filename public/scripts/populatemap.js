@@ -96,7 +96,7 @@ $(document).ready(function () {
 
 
 })
-
+}
  //---------------SAVE BELOW MAY COME IN HANDY ----------------------------------------------------
 
 // $(document).ready(function () {
