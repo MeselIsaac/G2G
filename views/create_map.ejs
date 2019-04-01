@@ -25,47 +25,83 @@
   <% include partials/_nav %>
 
   <main class="createmapcontainer">
-    <header>
-      <h2 class="pickcity">Pick a city and tell us about your map:</h2>
-    </header>
 
-    <div id="showmap">
-
-
-
-      <div id="map"></div>
-      <p>Click on the map to add markers.</p>
-
-
-
-      <p>
-      </p>
-      <form id="submitForm" action="/create" method="post">
-        <div>
-          Map Title:<br>
-          <input type="text" id="title" name='title' placeholder="Enter map name here"><br>
-
-          Description:<br>
-          <input type="text" id="description" name='description' placeholder="Enter description here"><br>
-
-
-          <input type="text" id="Longitude" name='long' placeholder="Longitude"><br>
-
-
-          <input type="text" id="Latitude" name='lat' placeholder="Latitude"><br>
-
-
-          <input type="submit" value="Submit">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <h2 class="pickcity">Get started</h2>
+          <p>Choose an center point for your city</p>
         </div>
-      </form>
-
-
-      <p>
-      </p>
-
-
-
+      </div>
     </div>
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md">
+          <div id="map"></div>
+        </div>
+      </div>
+      <div class="col-md">
+        <header>
+          <h2 class="pickcity"></h2>
+        </header>
+        <p>
+
+        </p>
+        <form id="submitForm" class="form-group" action="/create" method="post">
+          <div>
+            Give Your Map a Title:
+            <input type="text" id="title" class="form-control" name='title'><br>
+
+            Describe it a little:
+            <textarea type="text" id="description" class="form-control" name='description'
+              rows="3"></textarea></textarea>
+
+
+            <input type="text" id="Longitude" class="form-control" name='long'>
+
+
+            <input type="text" id="Latitude" name='lat'><br>
+
+
+
+            <input type="submit" class="btn btn-primary">
+          </div>
+        </form>
+
+      </div>
+    </div>
+    </div>
+
+    <p>
+    </p>
+    <!-- <form id="submitForm" action="/create" method="post">
+      <div>
+        Map Title:<br>
+        <input type="text" id="title" name='title' placeholder="Enter map name here"><br>
+
+        Description:<br>
+        <input type="text" id="description" name='description' placeholder="Enter description here"><br>
+
+
+        <input type="text" id="Longitude" name='long' placeholder="Longitude"><br>
+
+
+        <input type="text" id="Latitude" name='lat' placeholder="Latitude"><br>
+
+
+        <input type="submit" value="Submit">
+      </div>
+    </form> -->
+
+
+    <p>
+    </p>
+
+
+
+
   </main>
 
 
@@ -76,7 +112,7 @@
 
          async defer></script> -->
 
-       <!--   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY_vuhzmSgKE3XRutXaWk2MUstXdnrKZY&libraries=places&callback=initAutocomplete"
+  <!--   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY_vuhzmSgKE3XRutXaWk2MUstXdnrKZY&libraries=places&callback=initAutocomplete"
          async defer></script> -->
 
 

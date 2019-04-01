@@ -8,7 +8,7 @@ function initMap() {
     var originPoint = { lat: lat, lng: lng };
 
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
+        zoom: 9,
         center: originPoint,
         mapTypeId: 'roadmap',
         zoomControl: true,
@@ -22,7 +22,7 @@ function initMap() {
     });
 
 
-       map.addListener('click', function (event) {
+    map.addListener('click', function (event) {
         console.log("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
         deleteMarkers();
         let marker = new google.maps.Marker({
@@ -66,7 +66,7 @@ function initMap() {
             });
 
         }
-      }
+    }
 
 
 
@@ -86,19 +86,19 @@ function initMap() {
     }
 
 
-$(document).ready(function () {
+    $(document).ready(function () {
 
-  console.log('fsfs');
-  $('#submitForm').on('submit', () => {
-    $('#Longitude').val(temp_marker.position.lng())
-    $('#Latitude').val(temp_marker.position.lat())
-  });
-
-
+        console.log('fsfs');
+        $('#submitForm').on('submit', () => {
+            $('#Longitude').val(temp_marker.position.lng())
+            $('#Latitude').val(temp_marker.position.lat())
+        });
 
 
 
-})
+
+
+    })
 }
  //---------------SAVE BELOW MAY COME IN HANDY ----------------------------------------------------
 

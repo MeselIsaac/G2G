@@ -51,7 +51,6 @@
       <div class="row">
         <div class="col-md">
           <div id="map"></div>
-          <p>Click on the map to add markers.</p>
         </div>
         <div class="col-md">
           <header>
@@ -60,12 +59,12 @@
           <p>
             <%= description %>
           </p>
-        <!--   <form id="submitPointForm" class="form-group" action="/newPoint" method="post">
+          <form id="submitForm" class="form-group" action="/PointsRoutes" method="post">
             <div>
-              Title your Bathroom:<br>
+              Add a Marker and Tell us the Address:
               <input type="text" id="title" class="form-control" name='title' placeholder="Enter map name here"><br>
 
-              Description:<br>
+              Describe what it's like:
               <textarea type="text" id="description" class="form-control" name='description'
                 placeholder="Enter description here" rows="3"></textarea></textarea>
 
@@ -74,40 +73,19 @@
 
 
               <input type="text" id="Latitude" name='lat' placeholder="Latitude"><br>
+              <input type="text" id="place" name='stuff'>
 
 
-              <button type="submit" class="btn btn-primary">submit</button>
+              <input type="submit" class="btn btn-primary">
             </div>
-          </form> -->
+          </form>
 
         </div>
       </div>
     </div>
 
 
-    <!-- </div> -->
 
-
-    <form id="submitForm" action="/PointsRoutes" method="post">
-      <div>
-        Map Title:<br>
-        <input type="text" id="titles" name='title' placeholder="Enter map name here"><br>
-
-        Description:<br>
-        <input type="text" id="descrip" name='description' placeholder="Enter description here"><br>
-
-
-        <input type="text" id="Longitude" name='long' placeholder="Longitude"><br>
-
-
-        <input type="text" id="Latitude" name='lat' placeholder="Latitude"><br>
-
-        <input type="text" id="place" name='stuff' ><br>
-
-
-         <input type="submit" value="Submit">
-      </div>
-    </form>
 
   </main>
 
@@ -122,6 +100,7 @@
     var tryME = window.location.pathname.slice(12);
     document.getElementById("place").value = tryME;
     var markers = '<%- markers %>';
+
   </script>
   <!-- mesel's working individual map js -->
 

@@ -89,8 +89,8 @@ exports.seed = function (knex, Promise) {
         date_created: '2018-01-01',
         date_updated: '2019-01-02',
         user_id: users[3].id,
-        long: -123.132,
-        lat: 49.273
+        long: -79.387,
+        lat: 43.652
       }
     ]).returning('*')
       .then(areas => [users, areas]);

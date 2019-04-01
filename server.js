@@ -94,7 +94,7 @@ app.get("/users/maps/:mapid", async (req, res) => {
   const markers = points.map(function (point, index) {
     return {
       coords: { lat: point.lat, lng: point.long },
-      content: point.title
+      content: `<strong>${point.title}</strong><p>${point.description}</p>`
     }
   })
   const templateVars = { ...curatedArea[0], markers: JSON.stringify(markers) }
@@ -200,10 +200,10 @@ app.post("/create", (req, res) => {
 //create a point on a map
 
 app.post("/PointsRoutes", (req, res) => {
-  knex('points').insert({title: req.body.title, description: req.body.description, curated_area_id: req.body.stuff, long: req.body.long, lat: req.body.lat })
-  .then(function (rows) {
-    res.redirect('/')
-  })
+  knex('points').insert({ title: req.body.title, description: req.body.description, curated_area_id: req.body.stuff, long: req.body.long, lat: req.body.lat })
+    .then(function (rows) {
+      res.redirect('back')
+    })
 });
 
 

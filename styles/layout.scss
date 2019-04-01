@@ -28,7 +28,6 @@ body {
  * element that contains the map. */
 #map {
   height: 425px;
-  color: pink;
 }
 
 
@@ -56,7 +55,10 @@ body {
 #place {
   display: none;
 }
-
+.point-photo {
+  height: 50px;
+  width: auto;
+}
 // #showmap {
 //   display: none;
 // }

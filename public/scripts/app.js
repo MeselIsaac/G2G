@@ -7,12 +7,17 @@ var temp_marker = {};
 const data = {}
 
 function initMap() {
-  var haightAshbury = {lat: 37.769, lng: -122.446};
+  var haightAshbury = { lat: 37.517, lng: 4.256 };
 
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 2,
     center: haightAshbury,
-    mapTypeId: 'terrain'
+    mapTypeId: 'roadmap',
+    mapTypeControl: false,
+    scaleControl: true,
+    streetViewControl: false,
+    rotateControl: false,
+    fullscreenControl: false
   });
 
   // This event listener will call addMarker() when the map is clicked.
@@ -20,14 +25,14 @@ function initMap() {
   //   addMarker(event.latLng);
   // });
 
-  map.addListener('click', function(event) {
-    console.log("Latitude: "+event.latLng.lat()+" "+", longitude: "+event.latLng.lng());
+  map.addListener('click', function (event) {
+    console.log("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
     // event.latLng.lng(0)
     // event.latLng.lat(0)
     deleteMarkers();
 
     let marker = new google.maps.Marker({
-      position: {lat: event.latLng.lat(), lng: event.latLng.lng()},
+      position: { lat: event.latLng.lat(), lng: event.latLng.lng() },
       map: map,
       title: 'Click to zoom'
     });
