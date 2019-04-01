@@ -135,6 +135,7 @@ app.get("/users/:id/", async (req, res) => {
   //     console.log("Results", results);
   //     res.render("profile", { results: results });
   //   });
+
 });
 
 //view point data
@@ -185,7 +186,6 @@ app.post("/logout", (req, res) => {
 
 //create a new map
 app.post("/create", (req, res) => {
-
   knex('curated_area').insert({ user_id: req.session.user_id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat }).returning('id')
     .then(function (rows) {
       let goHere = rows[0]
@@ -195,20 +195,17 @@ app.post("/create", (req, res) => {
     })
 
 
-  /* user selects a ceterpoint, generating a new map */
-  // res.redirect("/maps/:id")
 });
 
 //create a point on a map
-app.post("/newPoint", (req, res) => {
 
-  console.log("REQ BODY ID ", req.body.id);
-  knex('points').insert({ curated_area_id: req.body.id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
-    .then(function (rows) {
-      res.redirect('/')
-    })
-  /*post a point to a map here*/
-})
+app.post("/PointsRoutes", (req, res) => {
+  knex('points').insert({title: req.body.title, description: req.body.description, curated_area_id: req.body.stuff, long: req.body.long, lat: req.body.lat })
+  .then(function (rows) {
+    res.redirect('/')
+  })
+});
+
 
 
 //----------- PUT REQUESTS---------------
@@ -216,7 +213,7 @@ app.post("/newPoint", (req, res) => {
 //edit a point on a map
 app.put("/maps/:mapid/:point", (req, res) => {
   /* some edity stuff this will relate closely to the create point route */
-})
+});
 
 
 

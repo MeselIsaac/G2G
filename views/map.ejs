@@ -45,6 +45,7 @@
   <main class="createmapcontainer">
 
 
+
     <!-- the code below is some quick styling. there is a form there, but please use the older form below for post requests  -->
     <div class="container">
       <div class="row">
@@ -59,7 +60,7 @@
           <p>
             <%= description %>
           </p>
-          <form id="submitPointForm" class="form-group" action="/newPoint" method="post">
+        <!--   <form id="submitPointForm" class="form-group" action="/newPoint" method="post">
             <div>
               Title your Bathroom:<br>
               <input type="text" id="title" class="form-control" name='title' placeholder="Enter map name here"><br>
@@ -77,32 +78,23 @@
 
               <button type="submit" class="btn btn-primary">submit</button>
             </div>
-          </form>
+          </form> -->
 
         </div>
       </div>
     </div>
 
 
-
-
-
-
-
-
-
-
     <!-- </div> -->
 
 
-
-    <form id="submitPointForm" action="/newPoint" method="post">
+    <form id="submitForm" action="/PointsRoutes" method="post">
       <div>
         Map Title:<br>
-        <input type="text" id="title" name='title' placeholder="Enter map name here"><br>
+        <input type="text" id="titles" name='title' placeholder="Enter map name here"><br>
 
         Description:<br>
-        <input type="text" id="description" name='description' placeholder="Enter description here"><br>
+        <input type="text" id="descrip" name='description' placeholder="Enter description here"><br>
 
 
         <input type="text" id="Longitude" name='long' placeholder="Longitude"><br>
@@ -110,12 +102,12 @@
 
         <input type="text" id="Latitude" name='lat' placeholder="Latitude"><br>
 
+        <input type="text" id="place" name='stuff' ><br>
 
-        <input type="submit" value="Submit">
+
+         <input type="submit" value="Submit">
       </div>
     </form>
-
-
 
   </main>
 
@@ -127,11 +119,11 @@
 
     var lng = parseFloat('<%= long %>');
     var lat = parseFloat('<%= lat %>');
-    // var markers = '<%- markers %>';
+    var tryME = window.location.pathname.slice(12);
+    document.getElementById("place").value = tryME;
+    var markers = '<%- markers %>';
   </script>
   <!-- mesel's working individual map js -->
-
-  <!-- <script type="text/javascript" src="/scripts/individualmap.js"></script> -->
 
 
   <!-- working points js file below -->
@@ -139,8 +131,8 @@
 
   <!-- bootstrap stuff -->
 
-  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
     integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
