@@ -64,13 +64,11 @@ app.use("/api/users", usersRoutes(knex));
 //browse index/root
 app.get("/", (req, res) => {
   let templateVars = {};
-  console.log("I AM HERE _____________");
   // in here, join the points entity so that we can use their coords as template vars.
   return knex('curated_area')
     .select()
     .then(function (results) {
       // var results = convertDates(result)
-      console.log("results", results);
       res.render("root", { results: results });
     })
 })
@@ -100,7 +98,7 @@ app.get("/users/maps/:mapid", async (req, res) => {
     }
   })
   const templateVars = { ...curatedArea[0], markers: JSON.stringify(markers) }
-  console.log("these are the templatevars,", templateVars);
+  // console.log("these are the templatevars,", templateVars);
 
   res.render("map", templateVars)
 
@@ -112,7 +110,7 @@ app.get("/users/:id/", (req, res) => {
     .select()
     .where({ id: req.params.id })
     .then(function (results) {
-      console.log("Results", results);
+      // console.log("Results", results);
       res.render("profile", { results: results });
     });
 });
@@ -144,12 +142,10 @@ app.post('/', (req, res) => {
               res.status(500).end()
               return
             }
-            console.log('look', rows[0])
             req.session.user_id = rows[0]
             res.redirect('/')
           })
       } else {
-        console.log('here', rows[0].id)
         req.session.user_id = rows[0].id
         res.redirect('/');
       }
@@ -165,50 +161,29 @@ app.post("/logout", (req, res) => {
 
 //create a new map
 app.post("/create", (req, res) => {
-
   knex('curated_area').insert({ user_id: req.session.user_id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat }).returning('id')
-    .then(function (rows) {
-      let goHere = rows[0]
-      console.log("GO HERE", goHere)
+  .then(function (rows) {
+    let goHere = rows[0]
+    res.redirect('/users/maps/' + goHere)
+  })
 
-      res.redirect('/users/maps/' + goHere)
-    })
-
-
-  /* user selects a ceterpoint, generating a new map */
-  // res.redirect("/maps/:id")
 });
 
 //create a point on a map
-app.post("/newPoint", (req, res) => {
-// <<<<<<< HEAD
-//   knex('points').insert({ curated_area_id: req.params.id, title: req.body.title, description: req.body.description, long: req.body.long, lat: req.body.lat })
-//     .then(function (rows) {
-//       // let goHere = rows[0]
-//       // console.log("GO HERE", goHere)
-// =======
-var obj = JSON.parse(req.body.myArray)
 
-  for (var i = 0; i < obj.length; i++) {
-    // console.log("OBJECt LOOP --------------------->", obj[i].long "         " obj[i].lat)
-  knex('points').insert({curated_area_id: req.body.id, long: obj[i].long, lat: obj[i].lat, title: req.body.title, description: req.body.description})
+app.post("/PointsRoutes", (req, res) => {
+  knex('points').insert({title: req.body.title, description: req.body.description, curated_area_id: req.body.stuff, long: req.body.long, lat: req.body.lat })
   .then(function (rows) {
-
-    console.log("ROWWWWWW -------->", rows)
-// >>>>>>> points
-
-      res.redirect('/')
-    })
-  /*post a point to a map here*/
-}
-})
+    res.redirect('/')
+  })
+});
 
 //----------- PUT REQUESTS---------------
 
 //edit a point on a map
 app.put("/maps/:mapid/:point", (req, res) => {
   /* some edity stuff this will relate closely to the create point route */
-})
+});
 
 
 

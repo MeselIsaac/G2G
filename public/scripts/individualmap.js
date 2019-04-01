@@ -185,33 +185,33 @@ $(function() {
 
 
 
-$('#submitPointForm').on('submit', (event) => {
-  event.preventDefault()
+// $('#submitPointForm').on('submit', (event) => {
+//   event.preventDefault()
 
-var curated_id = window.location.pathname.slice(12);
-// var data_to_send = JSON.stringify(pointsStorage);
+// var curated_id = window.location.pathname.slice(12);
+// // var data_to_send = JSON.stringify(pointsStorage);
 
-// console.log("data_to_string", data_to_send)
+// // console.log("data_to_string", data_to_send)
 
-  $.ajax({
-    // dataType: 'json',
-    // contentType: 'application/json; charset=utf-8',
-    type: "POST",
-    url: "/newPoint",
-    data: {"myArray": JSON.stringify(pointsStorage), id: curated_id, title: $("#title").val(), description: $("#description").val()},
-    success: function() {
-      pointsStorage = []
-      $("#title").val('')
-      $("#description").val('')
-      console.log("SUCCESS")
+//   $.ajax({
+//     // dataType: 'json',
+//     // contentType: 'application/json; charset=utf-8',
+//     type: "POST",
+//     url: "/newPoint",
+//     data: {"myArray": JSON.stringify(pointsStorage), id: curated_id, title: $("#title").val(), description: $("#description").val()},
+//     success: function() {
+//       pointsStorage = []
+//       $("#title").val('')
+//       $("#description").val('')
+//       console.log("SUCCESS")
 
-    },
-    error: function() {
-      alert('error')
-    }
-  });
+//     },
+//     error: function() {
+//       alert('error')
+//     }
+//   });
 
-})
+// })
 
 
 

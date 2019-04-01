@@ -32,67 +32,16 @@ function initMap() {
       title: 'Click to zoom'
     });
     temp_marker = marker;
+
+
     markers.push(marker);
-    console.log(markers);
+
 
   });
 
 }
 
-function initAutocomplete() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -33.8688, lng: 151.2195},
-    zoom: 13,
-    mapTypeId: 'roadmap'
-  });
 
-  // Create the search box and link it to the UI element.
-  var input = document.getElementById('pac-input');
-  var searchBox = new google.maps.places.SearchBox(input);
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-  // Bias the SearchBox results towards current map's viewport.
-  map.addListener('bounds_changed', function() {
-    searchBox.setBounds(map.getBounds());
-  });
-
-  var markers = [];
-  // Listen for the event fired when the user selects a prediction and retrieve
-  // more details for that place.
-  searchBox.addListener('places_changed', function() {
-    var places = searchBox.getPlaces();
-
-    if (places.length == 0) {
-      return;
-    }
-
-    // For each place, get the icon, name and location.
-    var bounds = new google.maps.LatLngBounds();
-    places.forEach(function(place) {
-      if (!place.geometry) {
-        console.log("Returned place contains no geometry");
-        return;
-      }
-      var icon = {
-        url: place.icon,
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25)
-      };
-
-
-
-      if (place.geometry.viewport) {
-        // Only geocodes have viewport.
-        bounds.union(place.geometry.viewport);
-      } else {
-        bounds.extend(place.geometry.location);
-      }
-    });
-    map.fitBounds(bounds);
-  });
-}
 
 // Sets the map on all markers in the array.
 function setMapOnAll(map) {
@@ -137,44 +86,3 @@ $(document).ready(function () {
 
 
 
-//-----BACK UP OF AMITA's FUNCTION------
-
-   // declared an empty object
-
-
-    // use data object to store values (lat/lng title ,etc)
-    // use ajax to send out this data object to the server
-
-
-// console.log('fsfs');
-//   $('#submitForm').on('submit', () => {
-//     console.log("");
-//     data = {
-//       "Latitude": temp_marker.position.lat(),
-//       "Longitude": temp_marker.position.lng(),
-//       "Title": $('#title').val(),
-//       "Description": $('#description').val(),
-//       "Rating": $('#rating').val()
-//     };
-//     // declared an empoty object
-//     console.log("THE MARKERS ARE HERE");
-//     console.log(data);
-
-//     // use data object to store values (lat/lng title ,etc)
-//     // use ajax to send out this data object to the server
-//     return false;
-//   })
-
-// })
-
-//NOT SURE IF NEEDED STORING JUST IN CASE
-// $(() => {
-//   $.ajax({
-//     method: "GET",
-//     url: "/api/users"
-//   }).done((users) => {
-//     for(user of users) {
-//       $("<div>").text(user.name).appendTo($("body"));
-//     }
-//   });;
-// });
